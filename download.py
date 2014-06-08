@@ -19,6 +19,9 @@ from StringIO import StringIO
 import urllib2
 import zipfile
 
+class NewReleaseException(Exception):
+    pass
+
 
 def main():
 
@@ -39,7 +42,9 @@ def main():
     if current_release_text in html:
         print('found the expected current release')
     else:
-        raise Exception('the site seems to have a new release')
+        raise NewReleaseException(
+                'The site seems to have a new release!  '
+                'Please update the download script with the new url.')
     print()
 
     

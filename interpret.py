@@ -319,6 +319,7 @@ def main(args):
 
 
 if __name__ == '__main__':
+    raise NotImplementedError
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('-i', '--infile', default='-',
             help='disease data input file')
