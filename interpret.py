@@ -112,12 +112,12 @@ def submain(f_interp, threshold, fin, fout):
     header_out = 'position', 'residue', 'status'
     for i, row_in in enumerate(fin):
         if not i:
-            fout_writer.write_row(header_out)
+            fout.writerow(header_out)
             continue
         pos, wildcodon, waa, maa, dmin, d0, d1, d2, d3 = row_in
         pos = int(pos)
         dmin = int(dmin)
-        dcounts = np.array([int(x) for x in (d0, d1, d2, d3)])
+        dcounts = [int(x) for x in (d0, d1, d2, d3)]
         status = f_interp(waa, maa, dmin, dcounts, threshold)
         row_out = pos, maa, status
         fout.writerow(row_out)
@@ -137,7 +137,7 @@ def main(args):
         fin_reader = csv.reader(fin, delimiter='\t')
         with open_out(args.outfile) as fout:
             fout_writer = csv.writer(fout, delimiter='\t')
-            return submain(f_interp, threshold, fin_reader, fout_writer)
+            return submain(f_interp, args.threshold, fin_reader, fout_writer)
         
 
 if __name__ == '__main__':
